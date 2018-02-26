@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="GetBuildingName">
+<form action="DatabaseConnection">
 	Name of Professor :<br>
 	<input type= "text" name= "address" />
 	<input type="submit" value="send"/>

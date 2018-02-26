@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.src.pkg.geolocationresponse.BuildingLocation;
+import com.src.pkg.geolocationresponse.Location;
 
 /**
  * Servlet implementation class MyServlet
@@ -38,25 +39,31 @@ public class ServletToGetTheLocationOfBuilding extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter write = response.getWriter();
 		if (request.getParameter("address") == null) {
 			write.println(" Please Enter Your name");
-		} else {
+		} 
+		else {
 			String address = request.getParameter("address");
-			String responseString = getAdressAndGenerateURI(address);
-
-			BuildingLocation location = new Gson().fromJson(responseString, BuildingLocation.class);
-
-			double latittude = location.getResults().iterator().next().getGeometry().getLocation().getLat();
-			double longitude = location.getResults().iterator().next().getGeometry().getLocation().getLng();
+			Location location = getLatitudeAndLongitude(address);
+			
+			double latittude = location.getLat();
+			double longitude = location.getLng();
 			write.println("  " + latittude + "," + longitude);
-
 		}
-		write.print("This is Misbah!");
+		
 	}
 
-	private String getAdressAndGenerateURI(String address) throws IOException {
+	public Location getLatitudeAndLongitude(String address) throws IOException {
+			String responseString = getAdressAndGenerateURI(address);
+
+			BuildingLocation location= new Gson().fromJson(responseString, BuildingLocation.class);
+			
+			Location loc = location.getResults().iterator().next().getGeometry().getLocation();
+			return loc;
+	}
+
+	public String getAdressAndGenerateURI(String address) throws IOException {
 
 		String str = address.replace(" ", "+");
 

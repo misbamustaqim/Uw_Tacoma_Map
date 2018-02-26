@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="ServletToGetTheLocationOfBuilding">
+<form action="MyServlet">
 	Destination :<br>
 	<input type= "text" name= "address" />
 	<input type="submit" value="send"/>
