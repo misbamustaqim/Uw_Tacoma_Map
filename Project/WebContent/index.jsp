@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="MyServlet">
+<form action="DatabaseConnectionForRestro">
 	Destination :<br>
 	<input type= "text" name= "address" />
 	<input type="submit" value="send"/>

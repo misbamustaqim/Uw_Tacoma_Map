@@ -17,36 +17,37 @@ import com.mysql.jdbc.Statement;
 import com.src.pkg.geolocationresponse.Location;
 
 /**
- * Servlet implementation class DatabaseConnection
+ * Servlet implementation class DatabaseConnectionForRestro
  */
-@WebServlet("/DatabaseConnection")
-public class DatabaseConnection extends HttpServlet {
+@WebServlet("/DatabaseConnectionForRestro")
+
+
+public class DatabaseConnectionForRestro extends HttpServlet {
 	private Connection connect = null;
 	//private Statement statement = null;
 	private ResultSet resultSet = null;
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @throws Exception
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public DatabaseConnection() throws Exception {
-		super();
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DatabaseConnectionForRestro() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	}
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		PrintWriter write = response.getWriter();
 		if (request.getParameter("address") == null) {
 			write.println(" Please Enter Your name");
 		} else {
 			String address = request.getParameter("address");
-			String query ="SELECT * FROM Database_prof_to_buildingName.Directory_of_prof_nameOfBuilding WHERE NameOfProf='" + address+ "'; " ;
+			String query ="SELECT * FROM Database_prof_to_buildingName.restaurants_database WHERE NameOfrestaurant='" + address+ "'; " ;
 			//System.out.println(query);
 
 			try {
@@ -64,10 +65,10 @@ public class DatabaseConnection extends HttpServlet {
 				
 				
 				// write.print("result = " +resultSet);
-				String nameofBuildding = writeResultSet(resultSet);
+				String NameOfrestaurant = writeResultSet(resultSet);
 				
 				ServletToGetTheLocationOfBuilding locServlet = new ServletToGetTheLocationOfBuilding();
-				Location loc = locServlet.getLatitudeAndLongitude(nameofBuildding);
+				Location loc = locServlet.getLatitudeAndLongitude(NameOfrestaurant);
 				double latittude = loc.getLat();
 				double longitude = loc.getLng();
 				write.println("  " + latittude + "," + longitude);
@@ -93,7 +94,7 @@ public class DatabaseConnection extends HttpServlet {
 			// e.g. resultSet.getSTring(2);
 			//int id = resultSet.getInt("id");
 			//String nameOfProf = resultSet.getString("nameOfProf");
-			NameOfrestaurant =NameOfrestaurant + resultSet.getString("NameOfBuilding");
+			NameOfrestaurant =NameOfrestaurant + resultSet.getString("NameOfrestaurant");
 
 			//System.out.println("id: " + id);
 			//System.out.println("nameOfProf: " + nameOfProf);
