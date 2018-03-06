@@ -52,4 +52,34 @@ public class DatabaseHelper {
 		return NameOfrestaurant;
 	}
 	
+	public ResultSet GetRecommendationFromDatabase(String query)
+	{
+		Connection connect = null;
+		try {
+            String url = "jdbc:sqlite:database.db";
+            
+            connect = DriverManager.getConnection(url);
+		
+			Statement statement = (Statement) connect.createStatement();
+			
+			ResultSet resultSet = statement
+					.executeQuery(query);
+			
+			return resultSet;
+		
+		} catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (connect != null) {
+                		connect.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+		
+		return null;
+	}
+	
 }

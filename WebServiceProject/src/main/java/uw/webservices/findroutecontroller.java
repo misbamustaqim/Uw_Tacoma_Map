@@ -29,4 +29,9 @@ public class findroutecontroller {
 	public String directions() {
 		return "directions";
 	}
+	
+	@RequestMapping("/professordetails")
+	public String professordetails() {
+		return "professordetails";
+	}
 }

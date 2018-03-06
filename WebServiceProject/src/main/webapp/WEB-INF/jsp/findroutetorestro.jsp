@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     import="uw.webservices.destination.GetDestination, uw.webservices.geolocationresponse.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.sql.*" %>
+
+<%ResultSet resultset =null;%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,7 +18,36 @@
 	
 	<form name="findroute" action="directions" method="GET">
 		Source<input type="text" id="source" name="source">
-		Restaurant Name<input type="text" id="destination" name="destination">
+		Restaurant Name
+		
+				
+
+<%
+    try{
+	    String query="select DISTINCT name from restaurant";	 
+    	String url = "jdbc:sqlite:database.db";
+    		 Connection connect = DriverManager.getConnection(url);
+    		 Statement statement = (Statement) connect.createStatement();
+    		 resultset =statement.executeQuery(query);
+%>
+        
+      <select type="hidden" name =" Restaurant Name" id="destination">  
+      
+      <option >Restaurant name</option>
+        <%  while(resultset.next()){ %>
+       <option value="<%= resultset.getString(1)%>"><%= resultset.getString(1)%></option>
+             <% } %>
+        </select>   
+        <%
+
+  }
+		
+        catch(Exception e)
+        {
+             out.println("wrong entry"+e);
+        }
+
+%>    
 		<input type="button" value="submit" onclick="getlocation()"> 
 	</form>
 <script type="text/javascript" language="javascript">
