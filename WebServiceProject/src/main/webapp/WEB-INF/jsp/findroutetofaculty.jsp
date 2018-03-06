@@ -23,7 +23,7 @@
 
 <%
     try{
-	    String query="select DISTINCT name from restaurant";	 
+	    String query="select DISTINCT name from faculty";	 
     	String url = "jdbc:sqlite:database.db";
     		 Connection connect = DriverManager.getConnection(url);
     		 Statement statement = (Statement) connect.createStatement();
